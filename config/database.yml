@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: event_user
+  password: 123456
+  host: localhost
+
+development:
+  <<: *default
+  database: events_management
+
+# test:
+#   <<: *default
+#   database: events_test
+
+# production:
+#   <<: *default
+#   database: events_production
+#   username: events
+#   password: <%= ENV['EVENTS_DATABASE_PASSWORD'] %>

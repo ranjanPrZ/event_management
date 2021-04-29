@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-2">
+        <div class="card-body">
+          <h5 class="card-title text-center">Sign Up</h5>
+					<%= form_for :user, url: '/register' do |f| %>
+					  Name: <%= f.text_field :name , class: 'form-control mt-2 mb-2'%>
+					  Email: <%= f.text_field :email , class: 'form-control mt-2 mb-2'%>
+					  Password: <%= f.password_field :password , class: 'form-control mt-2 mb-2'%>
+					  Password Confirmation: <%= f.password_field :password_confirmation , class: 'form-control mt-2 mb-2'%>
+					  Gender: <%= f.radio_button :gender, :Female, class:'mr-2 ml-2' %>Female
+										<%= f.radio_button :gender, :Male, class:'mr-2 ml-2' %>Male <br>
+						<p class="text-center mt-4">
+							<%= f.submit "Create account", class:'btn btn-success mt-2 mb-2'%>
+						</p>
+					<% end %>
+					<p class="text-center">
+						If already registered, Please <%= link_to "Signin", login_path %>.
+					</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

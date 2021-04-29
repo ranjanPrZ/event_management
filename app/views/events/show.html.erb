@@ -1,0 +1,26 @@
+<div class="container d-flex mt-5">
+	<div class="left-container p-3">
+		<h5><%= @event_details[:name] %></h5>
+		<h5 class="mt-4 mb-3">Details</h5>
+		<p><%= @event_details[:description] %></</p>
+	</div>
+	<div class="right-container p-3">
+		<h5> Attendees (<%= attendees_count(@event_details) %>) </h5>
+		<table class="table table-bordered">
+  		<thead>
+		    <tr>
+		      <th scope="col">Name</th>
+		      <th scope="col">Gender</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+				<% @event_details[:users].each do |user| %>
+				<tr>
+					<td><%= user.first %></td>
+					<td><%= user.last %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>

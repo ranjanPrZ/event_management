@@ -1,0 +1,105 @@
+<% key,cls_name =flash_key_cls(flash) %>
+<% if !!key && flash[key].present? %>
+	<div class="alert alert-<%=cls_name%> text-center" id="flash_message" role="alert">
+		<%= flash[key] %>
+	</div>
+<% end %>
+<div class="container mt-4">
+	<h4>List of events</h4>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th scope="col">Sl no.</th>
+	      <th scope="col">Event</th>
+	      <% if current_user %>
+	      	<th scope="col">Attend/Unattend</th>
+	      <% end %>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<%@events.each_with_index do |event,index| %>
+	      <tr>
+		      <td><%= index+1 %></td>
+		      <td><%= link_to event.name, event_details_path(event)%></td>
+		      <% if current_user %>
+						<!-- <td><%= button_to attend_status(event), attend_path(event) %></td> -->			
+						<td><button data-toggle="modal" data-target="#myModal" id="attend_btn"><%=attend_status(event)%></button></td>
+	 				<% end %>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+
+<!-- Modal for cards details -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Subscribe</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+      	<p class="pl-3">Get subscription of $10 to attend the event.</p>
+      	<div class="container d-flex">
+	      	<div class="left-container">
+						<%= form_tag logged_in_path do %>
+	        	  <%= label_tag :Name %>
+							<%= text_field_tag "Name", "", placeholder:"Name on card", class: 'form-control mb-3'%>
+	        	  <%= label_tag :Card_details %>
+							<%= text_field_tag "Card details", "", placeholder:"Card number", class: 'form-control mb-3'%>
+							<div class="d-flex">
+								<%= number_field_tag 'Month', nil, placeholder:"MM", min: 1, max: 12, class:"form-control" %>
+								<%= number_field_tag 'Year', nil, placeholder:"YYYY", min: 2021, max: 2030, class:"form-control" %>
+								<%= number_field_tag 'Security Code', nil, placeholder:"Security Code", min: 100, max: 999, class:"form-control" %>
+							</div>
+	          <% end %>
+	      </div>
+	      <div class="right-container p-4 subtotal_box">
+	      	<b>Summary</b>
+	      	<table class="table-borderless">
+	      		<tbody>
+	      			<tr>
+	      				<td>Original price:</td>
+	      				<td class="text-right p-1">$10</td>
+	      			</tr>
+	      			<tr>
+	      				<td>Discount price:</td>
+	      				<td class="text-right p-1" id="discount_id"></td>
+	      			</tr>
+	      			<tr>
+	      				<td><b>Total:</b></td>
+	      				<td class="text-right p-1" id="subtotal"></td>
+	      			</tr>
+	      		</tbody>
+	      	</table>
+	      </div>
+	    </div>
+        <p class="pl-3 mt-4">Note: There is 5% discount for Female users.</p>
+      </div>
+      <div class="text-center mb-4">
+        <button type="button" class="btn btn-success" id="subscribe">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal for token authorization -->
+<div class="modal fade" id="tokenModal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    	</div>
+      <div class="modal-body">
+      	<p id="nitify_msg"></p>
+        <h5 class="modal-title p-1 mb-2" id="myModalLabel">Enter OTP</h5>
+        <%= text_field_tag "Name", '',placeholder:'Enter otp', id:'otp_field', class: 'form-control mb-3'%>
+        <div class="text-center">
+        	<button type="button" class="btn btn-success mt-3 mb-3" id="submit_otp">Submit</button>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
