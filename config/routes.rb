@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post 'register', to: 'users#create'
 
   get 'event_details/:id', to: 'events#show', as: 'event_details'
-  post 'attend/:id', to: 'events#attend', as: 'attend'
+  post 'attend', to: 'events#attend'
 
   get 'gender_discount', to: 'tickets#gender_based_discount'
   get 'token_generator', to: 'tickets#token_generator'

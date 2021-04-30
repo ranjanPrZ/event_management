@@ -3,6 +3,7 @@ class TokenMailer < ApplicationMailer
 
   def send_token(user, token)
   	@user = user
-    mail(to: @user.email, subject: "Your token. #{token}")
+  	@token = token
+    mail(to: @user.email, subject: "Event subscription verification.")
   end
 end

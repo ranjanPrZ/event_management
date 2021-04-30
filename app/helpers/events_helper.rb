@@ -1,5 +1,9 @@
 module EventsHelper
 	def attend_status(event)
+  	user_ids = EventUser.event_users(event.id,current_user.id).pluck(:user_id)
+  	if user_ids.include?(current_user.id)
+  	  flash[:alert]="You have already subscribed to attend the event."
+	  end
     event.users.pluck(:name).include?(current_user.name) ? 'Attend' : 'UnAttend'
 	end
 

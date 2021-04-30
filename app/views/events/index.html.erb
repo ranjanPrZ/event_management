@@ -23,7 +23,7 @@
 		      <td><%= link_to event.name, event_details_path(event)%></td>
 		      <% if current_user %>
 						<!-- <td><%= button_to attend_status(event), attend_path(event) %></td> -->			
-						<td><button data-toggle="modal" data-target="#myModal" id="attend_btn"><%=attend_status(event)%></button></td>
+						<td><button data-toggle="modal" data-target="#myModal" id="attend_btn" class="attend_button"><%=attend_status(event)%><span style="display: none;"><%=event.id%></span></button></td>
 	 				<% end %>
 	      </tr>
 	    <% end %>

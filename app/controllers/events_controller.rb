@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authorize!
+  before_action :authorize!, except: [:attend]
   	
   def index
   	@events = Event.order(:created_at)
@@ -11,8 +11,8 @@ class EventsController < ApplicationController
   end
 
   def attend
-   	event_user = EventUser.new(event_id:params[:id],user_id:current_user.id)
-  	if event_user.save
+   	event_user = EventUser.new(event_id:params[:event_id],user_id:current_user.id)
+  	if event_user.save!
   		flash[:success] = "You can attend the event."
   		redirect_to '/'
   	end
